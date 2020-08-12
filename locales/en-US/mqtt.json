@@ -43,12 +43,12 @@
             "tls-config":"TLS Configuration",
             "verify-server-cert":"Verify server certificate",
             "compatmode": "Use legacy MQTT 3.1 support",
-	    "unsubscribe-after-first-msg-recv": "Unsubscribe from topic after first message received",
-	    "unsubscribe-string":"Unsubscribe string"
+            "unsubscribe-after-first-msg-recv": "Unsubscribe from topic after first message received",
+            "unsubscribe-string":"Unsubscribe string"
         },
-	"input": {
-    	    "unsubscribe-input":"_unsubscribe"
-	},
+    "input": {
+            "unsubscribe-input":"_unsubscribe"
+    },
         "sections-label":{
             "birth-message": "Message sent on connection (birth message)",
             "will-message":"Message sent on an unexpected disconnection (will message)",
@@ -89,7 +89,9 @@
             "nonclean-missingclientid": "No client ID set, using clean session",
             "invalid-json-string": "Invalid JSON string",
             "invalid-json-parse": "Failed to parse JSON string",
-	    "missing-topicName": "topicName not defined"
+            "missing-topicName": "topicName not defined",
+            "already-subscribed": "topic already subscribed",
+            "not-subscribed": "topic not subscribed"
         }
     }
 }
