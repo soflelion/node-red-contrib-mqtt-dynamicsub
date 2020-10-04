@@ -11,7 +11,11 @@
   limitations under the License.
 -->
 
-<script type="text/x-red" data-template-name="digitaloak-mqtt-in">
+<script type="text/x-red" data-template-name="mqtt-in-dynamicsub">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
+    </div>
     <div class="form-row">
         <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span></label>
         <input type="text" id="node-input-broker">
@@ -39,19 +43,20 @@
         <label for="node-input-unsubscribe-after-first-msg-recv" style="width: auto" data-i18n="mqtt.label.unsubscribe-after-first-msg-recv"></label>
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
+        <input type="checkbox" id="node-input-debug-subscribe" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-debug-subscribe" style="width: auto" data-i18n="mqtt.label.debug-subscribe"></label>
     </div>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('digitaloak-mqtt-in',{
+    RED.nodes.registerType('mqtt-in-dynamicsub',{
         category: 'network',
         defaults: {
             name: {value:""},
             qos: {value: "2"},
             datatype: {value:"auto",required:true},
             "unsubscribe-after-first-msg-recv": {value:false},
+            "debug-subscribe": {value:false},
             broker: {type:"mqtt-broker", required:true},
         },
         color:"#d8bfd8",

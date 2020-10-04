@@ -40,19 +40,19 @@
             "keepalive": "Keep alive time (s)",
             "cleansession": "Use clean session",
             "use-tls": "Enable secure (SSL/TLS) connection",
-            "tls-config":"TLS Configuration",
-            "verify-server-cert":"Verify server certificate",
+            "tls-config": "TLS Configuration",
+            "verify-server-cert": "Verify server certificate",
             "compatmode": "Use legacy MQTT 3.1 support",
             "unsubscribe-after-first-msg-recv": "Unsubscribe from topic after first message received",
-            "unsubscribe-string":"Unsubscribe string"
+            "debug-subscribe": "Enable MQTT subscription debugging"
         },
     "input": {
             "unsubscribe-input":"_unsubscribe"
     },
         "sections-label":{
             "birth-message": "Message sent on connection (birth message)",
-            "will-message":"Message sent on an unexpected disconnection (will message)",
-            "close-message":"Message sent before disconnecting (close message)"
+            "will-message": "Message sent on an unexpected disconnection (will message)",
+            "close-message": "Message sent before disconnecting (close message)"
         },
         "tabs-label": {
             "connection": "Connection",
@@ -61,7 +61,7 @@
         },
         "placeholder": {
             "clientid": "Leave blank for auto generated",
-            "clientid-nonclean":"Must be set for non-clean sessions",
+            "clientid-nonclean": "Must be set for non-clean sessions",
             "will-topic": "Leave blank to disable will message",
             "birth-topic": "Leave blank to disable birth message",
             "close-topic": "Leave blank to disable close message"

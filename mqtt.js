@@ -21,7 +21,7 @@ module.exports = function (RED) {
     var HttpsProxyAgent = require('https-proxy-agent');
     var url = require('url');
 
-    function digitaloak_MQTTInNode(n) {
+    function MQTTInDynamicSubNode(n) {
         RED.nodes.createNode(this, n);
         this.qos = parseInt(n.qos);
         if (isNaN(this.qos) || this.qos < 0 || this.qos > 2) {
@@ -32,6 +32,7 @@ module.exports = function (RED) {
         this.brokerConn = RED.nodes.getNode(this.broker);
         this.datatype = n.datatype || "utf8";
         this.unsubscribeAfterFirstMsgRecv = n["unsubscribe-after-first-msg-recv"];
+        this.debugSubscribe = n["debug-subscribe"];
         this.subscribed_topics = {};
         var node = this;
         if (this.brokerConn) {
@@ -48,14 +49,18 @@ module.exports = function (RED) {
                     var unsubscribe = msg.unsubscribe;
                     if (unsubscribe === true && node.subscribed_topics[topic]) {
                         // unsubscribe single topic
-                        this.warn("msg.unsubscribe = \"" + topic + "\"");
+                        if (this.debugSubscribe) {
+                            this.warn("msg.unsubscribe = \"" + topic + "\"");
+                        }
                         this.brokerConn.unsubscribe(topic, node.id, true);
                         delete node.subscribed_topics[topic]
                         this.context().set("subscribed_topics", Object.keys(node.subscribed_topics));
                         return;
                     } else if (unsubscribe === "all") {
                         // unsubscribe all topics
-                        this.warn("msg.unsubscribe = \"all\"");
+                        if (this.debugSubscribe) {
+                            this.warn("msg.unsubscribe = \"all\"");
+                        }
                         for (topic in node.subscribed_topics) {
                             this.brokerConn.unsubscribe(topic, node.id, true);
                             delete node.subscribed_topics[topic]
@@ -73,7 +78,9 @@ module.exports = function (RED) {
                         return;
                     }
                     node.brokerConn.register(this);
-                    this.warn("msg.subscribe = \"" + topic + "\"");
+                    if (this.debugSubscribe) {
+                        this.warn("msg.subscribe = \"" + topic + "\"");
+                    }
                     if (! node.subscribed_topics[topic]) {
                         // Register topic and export to node context
                         node.subscribed_topics[topic] = Date.now();
@@ -168,7 +175,9 @@ module.exports = function (RED) {
             this.on('close', function (removed, done) {
                 if (node.brokerConn) {
                     //  iterate all subscribed topics and unsubscribe all
-                    this.warn("Unsubscribing on close");
+                    if (this.debugSubscribe) {
+                        this.warn("Unsubscribing on close");
+                    }
                     for (var topic in node.subscribed_topics) {
                         this.brokerConn.unsubscribe(topic, node.id, true);
                         delete this.subscribed_topics[topic]
@@ -182,5 +191,5 @@ module.exports = function (RED) {
             this.error(RED._("mqtt.errors.missing-config"));
         }
     }
-    RED.nodes.registerType("digitaloak-mqtt-in", digitaloak_MQTTInNode);
+    RED.nodes.registerType("mqtt-in-dynamicsub", MQTTInDynamicSubNode);
 };

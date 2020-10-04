@@ -1,9 +1,9 @@
 {
-  "name": "node-red-contrib-digitaloak-mqtt",
-  "version": "1.0.5",
+  "name": "node-red-contrib-mqtt-dynamicsub",
+  "version": "0.0.8",
   "node-red": {
     "nodes": {
-      "digitaloak-mqtt-in": "mqtt.js"
+      "mqtt-in-dynamicsub": "mqtt.js"
     }
   },
   "dependencies": {
@@ -14,28 +14,33 @@
     "https-proxy-agent": "^3.0.0"
   },
   "directories": {
-    "lib": "lib"
   },
   "author": {
-    "name": "tmdoit",
-    "email": "tm@digitaloak.it"    
+    "name": "Crowbar Z",
+    "email": "crowbarz@outlook.com"
   },
+  "contributors": [
+    {
+      "name": "tmdoit",
+      "email": "tm@digitaloak.it"
+    }
+  ],
   "bugs": {
-    "url":"https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt/issues"
+    "url": "https://github.com/crowbarz/node-red-contrib-mqtt-dynamicsub/issues"
   },
   "bundleDependencies": false,
-  "description" : "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription, unsubscribe after first msg recv option, dynamically unsubscribe specific node from specific topic, pass msgs through node.",
-  "homepage": "https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt#readme",
+  "description": "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription, unsubscribe after first msg recv option, dynamically unsubscribe specific node from specific topic, pass msgs through node.",
+  "homepage": "https://github.com/crowbarz/node-red-contrib-mqtt-dynamicsub",
   "keywords": [
     "node-red",
     "mqtt",
-    "dynamic mqtt",
+    "mqtt dynamic",
     "mqtt dynamic subscribe",
     "mqtt dynamic unsubscribe"
   ],
   "repository": {
-    "type":"git",
-    "url":"git+https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt.git"
+    "type": "git",
+    "url": "git+https://github.com/crowbarz/node-red-contrib-mqtt-dynamicsub.git"
   },
   "license": "Apache-2.0"
 }
