@@ -29,11 +29,13 @@
     "url": "https://github.com/crowbarz/node-red-contrib-mqtt-dynamicsub/issues"
   },
   "bundleDependencies": false,
-  "description": "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription, unsubscribe after first msg recv option, dynamically unsubscribe specific node from specific topic, pass msgs through node.",
+  "description": "MQTT node for Node-RED that allows dynamic subscriptions of MQTT topics via messages.",
   "homepage": "https://github.com/crowbarz/node-red-contrib-mqtt-dynamicsub",
   "keywords": [
     "node-red",
     "mqtt",
+    "mqtt subscribe",
+    "mqtt unsubscribe",
     "mqtt dynamic",
     "mqtt dynamic subscribe",
     "mqtt dynamic unsubscribe"
