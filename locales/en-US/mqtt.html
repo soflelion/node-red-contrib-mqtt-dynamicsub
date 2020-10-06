@@ -12,7 +12,9 @@
 -->
 
 <script type="text/x-red" data-help-name="mqtt-in-dynamicsub">
-    <p>Connects to a MQTT broker and subscribes to messages from topics registered with the node.</p>
+    <p>Connects to a MQTT broker.
+        Subscribes to messages from topics registered dynamically with the
+        node.</p>
     <h3>Configuration</h3>
     <dl class="message-properties">
         <dt>Server</dt>
@@ -25,61 +27,77 @@
             <li><code>2</code>: once and once only.</ul></dd>
         <dt>Output</dt>
         <dd>The expected type of received MQTT payloads. If set to
-            <code>auto</code>, output as a string unless detected as a binary
-            buffer.</dd>
+            <code>auto-detect</code>, output as a string unless detected as a
+            binary buffer.</dd>
         <dt>Unsubscribe from topic after first message received</dt>
-        <p>Set to automatically unsubscribe from any subscribed topic after
-        receiving an MQTT message on that topic.</p>
+        <dd>Set to automatically unsubscribe from any subscribed topic after
+            receiving an MQTT message on that topic. Topics containing
+            wildcards are not supported by this feature.</dd>
+        <dt>Enable MQTT subscription debugging</dt>
+        <dd>Set to log subscribe/unsubscribe requests in the debug log.</dd>
     </dl>
+
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt>topic <span text="required" class="badge">required</span><span class="property-type">string</span></dt>
-        <dd>Topic to subscribe/unsubscribe to</dd>
+        <dd>Topic to subscribe/unsubscribe to.</dd>
         <dt class="optional">unsubscribe <span class="property-type">boolean | string</span></dt>
-        <dd><p>If set to <code>true</code>, then unsubscribe from the specified
-            topic. If passed the string <code>"all"</code>, then unsubscribe
+        <dd><p>If set to <code>true</code>, then unsubscribe from the topic
+            specified in <code>msg.topic</code>.
+            If set to the string <code>"all"</code>, then unsubscribe
             from all currently subscribed topics. Otherwise, or if not set,
             subscribe to the specified topic.</p>
-            <p>An error will be thrown for a subscribe request for an already
-            subscribed topic, or for an unsubscribe request for a topic that is
-            not subscribed.</p>
+            <p>An error will be thrown if a subscribe request is received for
+            an already subscribed topic, or for an unsubscribe request is
+            received for a topic that is not currently subscribed.</p>
             <p>Node will not output on subscribe or unsubscribe.</p>
     </dl>
+
     <h3>Outputs</h3>
     <dl class="message-properties">
         <dt>payload <span class="property-type">string | buffer</span></dt>
-        <dd>the MQTT payload with type in accordance with the
+        <dd>The MQTT payload with type in accordance with the
             <code>Output</code> node property.</dd>
         <dt>topic <span class="property-type">string</span></dt>
-        <dd>the MQTT topic, uses <code>/</code> as a hierarchy separator.</dd>
+        <dd>The MQTT topic. Uses <code>/</code> as a hierarchy separator.</dd>
         <dt>qos <span class="property-type">number</span> </dt>
         <dd><ul>
             <li><code>0</code>: fire and forget
             <li><code>1</code>: at least once
             <li><code>2</code>: once and once only.</ul></dd>
         <dt>retain <span class="property-type">boolean</span></dt>
-        <dd><code>true</code> indicates the message was retained and may be old.</dd>
+        <dd><code>true</code> indicates the message was marked as retained by
+            the MQTT server, and the data may be stale.</dd>
     </dl>
+
+    <h3>Node Context</h3>
+    <dl class="message-properties">
+        <dt>subscribed_topics<span class="property-type">list</span></dt>
+        <dd>Contains a list of all currently subscribed topics.</dd>
+    </dl>
+
     <h3>Details</h3>
-    The subscription topic can include MQTT wildcards:
+    <p>This node requires a connection to a MQTT broker to be configured, which
+        can be configured by clicking the pencil icon. Brokers that are
+        configured for use by the built-in MQTT nodes can be used by this node.
+        Multiple MQTT nodes can share the same broker connection.</p>
+
+    Subscription topics can include MQTT wildcards:
     <ul>
         <li><code>+</code> for one level,
-        <li><code>#</code> for multiple levels (can only be used at the end of a topic).
+        <li><code>#</code> for multiple levels (can only be used at the end of
+            a topic).
     </ul>
-    <p>This node requires a connection to a MQTT broker to be configured. This is configured by clicking
-    the pencil icon.</p>
-    <p>Several MQTT nodes (in or out) can share the same broker connection if required.</p>
+
     <h3>In-band unsubscribe</h3>
-    If an MQTT message for a subscribed topic is received from the broker with
-    a string payload in the format <code>_unsubscribe:<i>nodeName</i></code>
-    (eg. <code>_unsubscribe:waitingForServiceResponse</code>), then any node(s)
-    with a name that matches <code><i>nodeName</i></code> will unsubscribe
-    itself from that topic. This will only work for subscribed topics that do
-    <i>not</i> contain MQTT wildcards <code>+</code> and/or <code>#</code>.
-    The MQTT message will not be output.
-    <h3>Context</h3>
-    The node context variable <code>subscribed_topics</code> contains a list of
-    all currently subscribed topics. This may be useful for troubleshooting MQTT
-    subscription issues.
-        
+    <p>If an MQTT message for a subscribed topic is received from the broker
+        with a string payload in the format
+        <code>_unsubscribe:<i>nodeName</i></code>
+        (eg. <code>_unsubscribe:waitForResponse</code>), then any
+        node(s) with a node name that matches <code><i>nodeName</i></code> will
+        unsubscribe itself from that topic. No message will be output by this
+        node on receipt of an in-band unsubscribe MQTT message.</p>
+    <p>Topics containing wildcards cannot be unsubscribed via in-band
+        unsubscribe MQTT messages.
+
 </script>
