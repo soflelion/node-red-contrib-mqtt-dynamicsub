@@ -16,10 +16,7 @@
 module.exports = function (RED) {
     "use strict";
     var mqtt = require("mqtt");
-    var util = require("util");
     var isUtf8 = require('is-utf8');
-    var HttpsProxyAgent = require('https-proxy-agent');
-    var url = require('url');
 
     function MQTTInDynamicSubNode(n) {
         RED.nodes.createNode(this, n);
