@@ -82,7 +82,8 @@ module.exports = function (RED) {
                         // Register topic and export to node context
                         node.subscribed_topics[topic] = Date.now();
                         this.context().set("subscribed_topics", Object.keys(node.subscribed_topics));
-                        this.brokerConn.subscribe(topic, this.qos, function (topic, payload, packet) {
+                        let options = { qos: this.qos };
+                        this.brokerConn.subscribe(topic, options, function (topic, payload, packet) {
                             // Unsubscribe string format "_unsubscribe:<nodeName>"
                             var unsubNode = payload.toString().split(":");
                             unsubNode = unsubNode.length === 2 && unsubNode[0] === "_unsubscribe" ? unsubNode[1] : null;
@@ -95,7 +96,7 @@ module.exports = function (RED) {
                                     return;
                                 } else {
                                     // topic not subscribed
-                                    this.error(RED._("mqtt.errors.not-subscribed"));
+                                    node.error(RED._("mqtt.errors.not-subscribed"));
                                 }
                             }
                             // Don't pass unsubscribe msg through nodes
