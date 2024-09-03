@@ -30,9 +30,12 @@ module.exports = function (RED) {
         this.datatype = n.datatype || "utf8";
         this.unsubscribeAfterFirstMsgRecv = n["unsubscribe-after-first-msg-recv"];
         this.debugSubscribe = n["debug-subscribe"];
+        this.tls = n.tls || "mqtts";  // Ajout de la propriété TLS ici
         this.subscribed_topics = {};
         var node = this;
         if (this.brokerConn) {
+            this.brokerConn.options = this.brokerConn.options || {};
+            this.brokerConn.options.protocol = this.tls;
             this.status({
                 fill: "red",
                 shape: "ring",

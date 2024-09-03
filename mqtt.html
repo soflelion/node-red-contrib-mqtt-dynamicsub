@@ -21,6 +21,10 @@
         <input type="text" id="node-input-broker">
     </div>
     <div class="form-row">
+        <label for="node-input-tls"><i class="fa fa-lock"></i> <span data-i18n="mqtt.label.tls"></span></label>
+        <input type="text" id="node-input-tls" data-i18n="[placeholder]mqtt.placeholder.tls">
+    </div>
+    <div class="form-row">
         <label for="node-input-qos"><i class="fa fa-empire"></i> <span data-i18n="mqtt.label.qos"></span></label>
         <select id="node-input-qos" style="width:125px !important">
             <option value="0">0</option>
@@ -58,6 +62,7 @@
             "unsubscribe-after-first-msg-recv": {value:false},
             "debug-subscribe": {value:false},
             broker: {type:"mqtt-broker", required:true},
+            tls: {value:"mqtts"}  // Ajout de la propriété TLS
         },
         color:"#d8bfd8",
         inputs:1,
