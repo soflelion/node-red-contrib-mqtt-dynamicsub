@@ -30,7 +30,12 @@ module.exports = function (RED) {
         this.datatype = n.datatype || "utf8";
         this.unsubscribeAfterFirstMsgRecv = n["unsubscribe-after-first-msg-recv"];
         this.debugSubscribe = n["debug-subscribe"];
-        this.tls = n.tls || "mqtts";  // Ajout de la propriété TLS ici
+        // Supposons que n.tlsKeyword est le champ où l'utilisateur entre le mot
+        if (n.tls != "mqtt") {
+            this.tls = {};  // Activer TLS si le mot est "activerTLS"
+        } else {
+            this.tls = null;  // Désactiver TLS pour tout autre mot
+        }
         this.subscribed_topics = {};
         var node = this;
         if (this.brokerConn) {
