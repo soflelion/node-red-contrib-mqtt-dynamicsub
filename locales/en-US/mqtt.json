@@ -39,6 +39,7 @@
             "port": "Port",
             "keepalive": "Keep alive time (s)",
             "cleansession": "Use clean session",
+            "tls": "TLS",
             "use-tls": "Enable secure (SSL/TLS) connection",
             "tls-config": "TLS Configuration",
             "verify-server-cert": "Verify server certificate",
@@ -64,7 +65,8 @@
             "clientid-nonclean": "Must be set for non-clean sessions",
             "will-topic": "Leave blank to disable will message",
             "birth-topic": "Leave blank to disable birth message",
-            "close-topic": "Leave blank to disable close message"
+            "close-topic": "Leave blank to disable close message",
+            "tls": "mqtts or mqtt"
         },
         "state": {
             "connected": "Connected to broker: __broker__",
